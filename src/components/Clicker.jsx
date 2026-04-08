@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
 
 function Clicker({ onClick }) {
-  const [animation, setAnimation] = useState('');
-  const [showEffect, setShowEffect] = useState(false);
-  const [effectValue, setEffectValue] = useState(0);
+  const [clickEffect, setClickEffect] = useState(null);
+  const [animation, setAnimation] = useState(false);
 
-  const handleClick = () => {
-    setAnimation('scale-90');
-    setTimeout(() => setAnimation(''), 100);
+  const handleClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    const value = Math.random() < 0.2 ? 5 : 1;
-    setEffectValue(value);
-    setShowEffect(true);
-    setTimeout(() => setShowEffect(false), 800);
+    setClickEffect({ x, y, id: Date.now() });
+    setAnimation(true);
 
     onClick();
+
+    setTimeout(() => setAnimation(false), 100);
   };
 
   return (
     <div className="clicker-container">
-      {showEffect && (
-        <div className="click-effect">+{effectValue}</div>
-      )}
       <button
-        className={`clicker-button ${animation}`}
+        className={`clicker-button ${animation ? 'scale-90' : ''}`}
         onClick={handleClick}
-        aria-label="Click to earn points"
+        style={{
+          backgroundImage: `url('https://imgfy.ru/ib/qfhH92yeYwxMxoP_1775668449.webp')`,
+          backgroundSize: 'cover',
+          border: 'none',
+          color: 'transparent'
+        }}
+        aria-label="Click me!"
       >
-        <img src="/Spidi_photo/Spidi_click.jpg" alt="Spidi Click" style="width: 100px; height: 100px;" />
+        Click!
       </button>
+
+      {clickEffect && (
+        <div
+          className="click-effect"
+          style={{
+            left: `${clickEffect.x}px`,
+            top: `${clickEffect.y}px`
+          }}
+          key={clickEffect.id}
+        >
+          +{1}
+        </div>
+      )}
     </div>
   );
 }

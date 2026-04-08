@@ -4,8 +4,6 @@ function Settings({ maps, backgroundIndex, setBackgroundIndex }) {
   return (
     <div className="settings">
       <h2>⚙️ Settings</h2>
-
-      {/* Смена фона */}
       <div>
         <p><strong>Select Background:</strong></p>
         <div style={{
@@ -30,7 +28,6 @@ function Settings({ maps, backgroundIndex, setBackgroundIndex }) {
                 transform: backgroundIndex === index ? 'scale(1.05)' : 'scale(1)',
                 transition: 'all 0.2s ease'
               }}
-              aria-label={`Select background ${index + 1}`}
             >
               <img
                 src={map}
@@ -46,8 +43,30 @@ function Settings({ maps, backgroundIndex, setBackgroundIndex }) {
         </div>
       </div>
 
-      {/* Кнопка сброса (по желанию) */}
       <div style={{ marginTop: '20px' }}>
         <button
           onClick={() => {
-            if (window.confirm('Are you sure you want to reset all
+            if (window.confirm('Reset all progress?')) {
+              localStorage.removeItem('spidi-clicker');
+              localStorage.removeItem('spidi-upgrades');
+              window.location.reload();
+            }
+          }}
+          style={{
+            background: '#d63031',
+            color: 'white',
+            border: 'none',
+            padding: '8px 12px',
+            borderRadius: '6px',
+            fontSize: '0.8rem',
+            cursor: 'pointer'
+          }}
+        >
+          🔁 Reset Progress
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Settings;

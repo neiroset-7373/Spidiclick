@@ -6,18 +6,18 @@ import Settings from '../components/Settings';
 import AudioPlayer from '../components/AudioPlayer';
 import '../styles/main.css';
 
-// Список всех карт
+// Все 10 фонов из твоих ссылок
 const MAPS = [
-  '/Spidi_photo/Maps/372678d4-ab5e-49c2-855c-a45234de13ee.png',
-  '/Spidi_photo/Maps/67cdf8b2-6750-4fb1-bdaf-667528c2650e.png',
-  '/Spidi_photo/Maps/ad927475-06b8-4e7b-8081-46d9554e9e20.png',
-  '/Spidi_photo/Maps/b5369044-6fdf-431b-9bbe-f9c74efca694.png',
-  '/Spidi_photo/Maps/c40598d3-b021-4dc3-ad14-1edb6de1e6d4.png',
-  '/Spidi_photo/Maps/c7942eda-721c-46d0-b87f-7291c0d32314.png',
-  '/Spidi_photo/Maps/d6d46483-20cd-467b-896c-567dab904f11.png',
-  '/Spidi_photo/Maps/dc16ccab-6170-450e-9663-5bd075093e57.png',
-  '/Spidi_photo/Maps/ea8fec50-6128-409c-bd85-0e02f33141c9.png',
-  '/Spidi_photo/Maps/f07d6849-89f7-4000-94a5-42e27605be99.png'
+  'https://imgfy.ru/ib/GtCJuc8FZTS6rHP_1775668358.webp',
+  'https://imgfy.ru/ib/KExDLsmPdi6S69l_1775668353.webp',
+  'https://imgfy.ru/ib/I3Y7S4fw60NCXG6_1775668356.webp',
+  'https://imgfy.ru/ib/Q0tS8jbc3nBw3HD_1775668355.webp',
+  'https://imgfy.ru/ib/MyczLaOBlcaN8mB_1775668356.webp',
+  'https://imgfy.ru/ib/CesmqooWrkeKIrQ_1775668355.webp',
+  'https://imgfy.ru/ib/9qIh8pdmiCKVGII_1775668355.webp',
+  'https://imgfy.ru/ib/ieqT6ZfHDxmCXc2_1775668355.webp',
+  'https://imgfy.ru/ib/fQVN18ewyaM4V0w_1775668355.webp',
+  'https://imgfy.ru/ib/zuzqivMLnYIp6L4_1775668355.webp'
 ];
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
   const [criticalChance, setCriticalChance] = useState(0.05);
   const [totalClicks, setTotalClicks] = useState(0);
   const [totalEarned, setTotalEarned] = useState(0);
-  const [backgroundIndex, setBackgroundIndex] = useState(0); // индекс активной карты
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
 
   // Загрузка сохранённых данных
   useEffect(() => {
@@ -92,7 +92,7 @@ function App() {
         <header className="header">
           <h1>Spidi Clicker</h1>
           <p>{points.toLocaleString()} 
-            <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style={{ width: '20px', height: '20px', verticalAlign: 'middle', marginLeft: '5px' }} />
+            <img src="https://imgfy.ru/ib/cM6e9y89ckXWZYi_1775668474.webp" alt="Coin" style={{ width: '20px', height: '20px', verticalAlign: 'middle', marginLeft: '5px' }} />
           </p>
         </header>
         <main>

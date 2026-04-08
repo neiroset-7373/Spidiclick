@@ -10,6 +10,24 @@ function Upgrades({
   criticalChance,
   setCriticalChance
 }) {
+  const [oneTimeUpgrades, setOneTimeUpgrades] = React.useState({
+    doubleClick: false,
+    tripleClick: false,
+    instantBoost: false,
+    fasterAutoClickers: false
+  });
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem('spidi-upgrades');
+    if (saved) {
+      setOneTimeUpgrades(JSON.parse(saved));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('spidi-upgrades', JSON.stringify(oneTimeUpgrades));
+  }, [oneTimeUpgrades]);
+
   const buyUpgrade = (cost, onBuy) => {
     if (points >= cost) {
       setPoints(p => p - cost);
@@ -18,6 +36,14 @@ function Upgrades({
   };
 
   const cost = (base, owned) => Math.floor(base * Math.pow(1.15, owned));
+
+  const coinIcon = (
+    <img
+      src="https://imgfy.ru/ib/cM6e9y89ckXWZYi_1775668474.webp"
+      alt="Coin"
+      style={{ width: '16px', height: '16px', verticalAlign: 'middle', marginLeft: '3px' }}
+    />
+  );
 
   return (
     <div className="upgrades">
@@ -30,7 +56,7 @@ function Upgrades({
         >
           +1 Click Power<br/>
           <small>Cost: {cost(10, clickPower)} </small>
-          <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 3px;" />
+          {coinIcon}
         </button>
 
         <button
@@ -40,7 +66,7 @@ function Upgrades({
         >
           +1 Auto Clicker<br/>
           <small>Cost: {cost(50, autoClickers)} </small>
-          <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 3px;" />
+          {coinIcon}
         </button>
 
         <button
@@ -51,33 +77,48 @@ function Upgrades({
           +1% Critical Chance<br/>
           <small>Max 25%</small><br/>
           <small>Cost: {cost(100, criticalChance * 100)} </small>
-          <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 3px;" />
+          {coinIcon}
         </button>
 
         <button
-          onClick={() => buyUpgrade(50, () => setClickPower(p => p * 2))}
-          disabled={points < 50}
+          onClick={() => {
+            if (!oneTimeUpgrades.doubleClick) {
+              buyUpgrade(50, () => {
+                setClickPower(p => p * 2);
+                setOneTimeUpgrades(u => ({ ...u, doubleClick: true }));
+              });
+            }
+          }}
+          disabled={points < 50 || oneTimeUpgrades.doubleClick}
           className="upgrade-btn special"
         >
           🚀 x2 Click Power!<br/>
           <small>One-time upgrade</small><br/>
           <small>Cost: 50 </small>
-          <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 3px;" />
+          {coinIcon}
         </button>
 
         <button
-          onClick={() => buyUpgrade(100, () => setClickPower(p => p * 3))}
-          disabled={points < 100}
+          onClick={() => {
+            if (!oneTimeUpgrades.tripleClick) {
+              buyUpgrade(100, () => {
+                setClickPower(p => p * 3);
+                setOneTimeUpgrades(u => ({ ...u, tripleClick: true }));
+              });
+            }
+          }}
+          disabled={points < 100 || oneTimeUpgrades.tripleClick}
           className="upgrade-btn special"
         >
           💥 x3 Click Power!<br/>
           <small>One-time upgrade</small><br/>
           <small>Cost: 100 </small>
-          <img src="/Spidi_photo/Spidi_Coin.jpg" alt="Coin" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 3px;" />
+          {coinIcon}
         </button>
       </div>
     </div>
   );
 }
 
+export default Upgrades;
 export default Upgrades;
